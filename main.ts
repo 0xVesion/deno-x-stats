@@ -14,8 +14,5 @@ const githubApi = new GithubApi(Deno.env.get("GITHUB_TOKEN") || "");
 const githubService = new GithubService(githubApi);
 const statsService = new StatsService(githubService, repoDb);
 
-repoDb
-  .find()
-  .then((r) => r[0])
-  .then(statsService.getStats)
-  .then(console.log);
+await statsService.importRepos();
+await statsService.importStats();

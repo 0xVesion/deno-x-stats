@@ -14,6 +14,7 @@ export enum DenoXEntryType {
 
 export interface RepositoryStats {
   createdDate: string;
+  lastModifiedDate: string;
   size: number;
   stars: number;
   forks: number;

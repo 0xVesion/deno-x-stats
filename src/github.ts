@@ -1,14 +1,14 @@
 import { Api } from "./core.ts";
 
 export interface GithubRepository {
-  created_at: Date;
-  updated_at: Date;
-  pushed_at: Date;
   size: number;
   stargazers_count: number;
   forks: number;
   open_issues: number;
   watchers: number;
+  created_at:        string,
+  updated_at:        string,
+  pushed_at:         string,
 }
 
 export class GithubApi extends Api {
@@ -23,10 +23,12 @@ export class GithubApi extends Api {
     this.version = version;
   }
 
-  protected fetch(
+  protected async fetch(
     path: string,
     init?: RequestInit,
   ): Promise<Response> {
+    await new Promise((res, rej) => setTimeout(res, 750));
+
     return super.fetch(path, {
       headers: {
         Accept: `application/vnd.github.v${this.version}+json`,
