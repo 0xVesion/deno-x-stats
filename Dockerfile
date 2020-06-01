@@ -13,6 +13,6 @@ WORKDIR /app
 
 COPY . .
 
-RUN deno cache main.ts
+RUN deno cache --unstable main.ts
 
 ENTRYPOINT deno run --allow-net --allow-write --allow-read --allow-env --allow-plugin --unstable main.ts
