@@ -14,5 +14,9 @@ const githubApi = new GithubApi(Deno.env.get("GITHUB_TOKEN") || "");
 const githubService = new GithubService(githubApi);
 const statsService = new StatsService(githubService, repoDb);
 
-await statsService.importRepos();
-await statsService.importStats();
+while (true) {
+  await statsService.importRepos();
+  await statsService.importStats();
+
+  await new Promise((res) => setTimeout(res, 1000 * 60 * 15));
+}

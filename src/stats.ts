@@ -5,7 +5,7 @@ import { DenoXEntry, Repository, RepositoryStats } from "./model.ts";
 export class StatsService {
   public readonly github: GithubService;
   public readonly db: RepositoryDb;
-  public readonly hours: number = 6;
+  public readonly hours: number = 4;
 
   public constructor(github: GithubService, db: RepositoryDb) {
     this.github = github;
@@ -85,7 +85,7 @@ export class StatsService {
 
       if (entry.stats.length > 0) {
         const lastEntry = entry.stats[entry.stats.length - 1];
-        const lastEntryMillis = new Date().getMilliseconds() - new Date(lastEntry.createdDate).getMilliseconds();
+        const lastEntryMillis = new Date().getTime() - new Date(lastEntry.createdDate).getTime();
 
         if (lastEntryMillis < this.hours * 60 * 60 * 1000) continue;
       }
