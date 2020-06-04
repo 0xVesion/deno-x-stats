@@ -91,12 +91,16 @@ export class StatsService {
       }
       console.log(`Updating stats for ${entry.owner}/${entry.repository}...`);
 
-      const stats = await this.getStats(entry.owner, entry.repository);
+      try {
+        const stats = await this.getStats(entry.owner, entry.repository);
 
       await this.db.updateOne(
         { _id: (entry as any)._id },
         { $push: { stats: stats } },
       );
+      }
+     catch(e) {
+       console.error(`Error whilst fetching stats for: '${entry.name}': ${e}`);
     }
 
     console.log(`Finished stats update!`);
