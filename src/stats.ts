@@ -85,7 +85,8 @@ export class StatsService {
 
       if (entry.stats.length > 0) {
         const lastEntry = entry.stats[entry.stats.length - 1];
-        const lastEntryMillis = new Date().getTime() - new Date(lastEntry.createdDate).getTime();
+        const lastEntryMillis = new Date().getTime() -
+          new Date(lastEntry.createdDate).getTime();
 
         if (lastEntryMillis < this.hours * 60 * 60 * 1000) continue;
       }
@@ -94,15 +95,15 @@ export class StatsService {
       try {
         const stats = await this.getStats(entry.owner, entry.repository);
 
-      await this.db.updateOne(
-        { _id: (entry as any)._id },
-        { $push: { stats: stats } },
-      );
+        await this.db.updateOne(
+          { _id: (entry as any)._id },
+          { $push: { stats: stats } },
+        );
+      } catch (e) {
+        console.error(`Error whilst fetching stats for: '${entry.name}': ${e}`);
       }
-     catch(e) {
-       console.error(`Error whilst fetching stats for: '${entry.name}': ${e}`);
-    }
 
-    console.log(`Finished stats update!`);
+      console.log(`Finished stats update!`);
+    }
   }
 }
