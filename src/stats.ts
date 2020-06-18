@@ -5,7 +5,7 @@ import { DenoXEntry, Repository, RepositoryStats } from "./model.ts";
 export class StatsService {
   public readonly github: GithubService;
   public readonly db: RepositoryDb;
-  public readonly hours: number = 4;
+  public readonly hours: number = 8;
 
   public constructor(github: GithubService, db: RepositoryDb) {
     this.github = github;
